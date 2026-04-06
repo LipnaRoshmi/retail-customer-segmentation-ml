@@ -1,18 +1,18 @@
-# Fashion Retail Customer Value Analysis and Segmentation
+# Retail Customer Segmentation and High-Value Customer Prediction
 
 ## Project Overview
 
-This project analyzes customer purchasing behavior in a fashion retail dataset and applies machine learning techniques to identify high-value customers. The analysis includes data preprocessing, exploratory data analysis, clustering, and predictive modeling.
+This project analyzes retail transaction data from a fashion store to understand customer purchasing behavior, perform customer segmentation, and identify high-value customers using machine learning techniques.
 
-Understanding customer value is essential for businesses because it helps them focus on customers who generate the most revenue. By identifying high-value customers, companies can develop targeted marketing strategies and improve customer retention.
+Customer segmentation helps businesses understand different types of customers and design targeted marketing strategies. By identifying high-value customers, businesses can improve customer retention, personalize marketing campaigns, and increase profitability.
 
-This project demonstrates a complete data science workflow using Python, from raw data analysis to machine learning model evaluation.
+The project combines **data preprocessing, feature engineering, clustering, predictive modeling, and Tableau visualizations** to analyze and present insights from the dataset.
 
 ---
 
 # Dataset Description
 
-The dataset contains transaction records from a fashion retail store. Each row represents a purchase made by a customer.
+The dataset contains retail transaction records where each row represents a purchase made by a customer.
 
 ## Dataset Features
 
@@ -20,12 +20,12 @@ The dataset contains transaction records from a fashion retail store. Each row r
 |------|------|
 | Customer Reference ID | Unique identifier for each customer |
 | Item Purchased | Product purchased by the customer |
-| Purchase Amount (USD) | Amount spent by the customer |
+| Purchase Amount (USD) | Amount spent on the purchase |
 | Date Purchase | Date of the transaction |
 | Review Rating | Rating given by the customer |
 | Payment Method | Payment method used (Credit Card or Cash) |
 
-These variables allow us to analyze customer purchasing patterns and identify valuable customers.
+This information allows analysis of customer purchasing patterns and spending behavior.
 
 ---
 
@@ -35,16 +35,17 @@ The main objectives of this project are:
 
 - Perform **data cleaning and preprocessing**
 - Conduct **exploratory data analysis**
-- Identify patterns in customer purchasing behavior
-- Perform **customer segmentation using clustering**
-- Build a **machine learning model to predict high-value customers**
+- Identify customer behavior patterns
+- Perform **RFM-based customer segmentation**
+- Apply **machine learning models** to predict high-value customers
 - Evaluate model performance using classification metrics
+- Visualize insights using **Tableau**
 
 ---
 
 # Technologies Used
 
-The project was implemented using the following tools and libraries:
+The following tools and technologies were used in this project:
 
 - Python
 - Pandas
@@ -52,55 +53,43 @@ The project was implemented using the following tools and libraries:
 - Scikit-learn
 - Matplotlib
 - Seaborn
+- Tableau
 - Jupyter Notebook
 
 ---
 
 # Project Workflow
 
-The project follows a structured data science workflow.
-
----
-
 ## 1 Data Loading
 
-The dataset is loaded using the Pandas library.
+The dataset is loaded into a Pandas DataFrame for analysis.
 
 ```python
 import pandas as pd
 
-df = pd.read_csv("data/fashion_retail_sales.csv")
+df = pd.read_csv("data/Fashion_Retail_Sales.csv")
 ```
 
 ---
 
 ## 2 Data Cleaning
 
-Data preprocessing is performed to ensure data quality.
+Data preprocessing ensures that the dataset is accurate and ready for analysis.
 
 Cleaning steps include:
 
-- Converting purchase date to datetime format
-- Ensuring numerical variables are correctly formatted
-- Checking for missing values
-- Removing duplicate records
-- Standardizing column names
-
-These steps ensure that the dataset is reliable for further analysis.
+- Converting purchase dates into datetime format
+- Handling missing values
+- Removing duplicates
+- Ensuring correct data types for numerical columns
 
 ---
 
 ## 3 Feature Engineering
 
-Additional features are extracted from the purchase date to capture time-based purchasing patterns.
+Additional features are extracted from the purchase date to capture temporal purchasing patterns.
 
-Example features include:
-
-- Month of purchase
-- Day of the week
-- Quarter of the year
-
-Example code:
+Examples:
 
 ```python
 df["PurchaseDate"] = pd.to_datetime(df["Date Purchase"])
@@ -110,50 +99,108 @@ df["DayOfWeek"] = df["PurchaseDate"].dt.day_name()
 df["Quarter"] = df["PurchaseDate"].dt.quarter
 ```
 
-Feature engineering helps reveal seasonal trends and improves model performance.
+These features help analyze seasonal purchasing behavior.
 
 ---
 
-## 4 Exploratory Data Analysis
+## 4 Customer Segmentation (RFM Analysis)
 
-Exploratory Data Analysis (EDA) is performed to understand patterns in the dataset.
+Customers are segmented using **RFM analysis**, which evaluates customer value using three metrics:
 
-Key analyses include:
+| Metric | Meaning |
+|------|------|
+| Recency | How recently the customer made a purchase |
+| Frequency | How often the customer purchases |
+| Monetary | How much the customer spends |
 
-- Distribution of purchase amounts
-- Customer spending patterns
-- Payment method usage
-- Customer review ratings
+Using these metrics, customers are grouped into segments such as:
 
-Visualizations help identify trends and insights in customer behavior.
+- Champions
+- Loyal Customers
+- Potential Loyalists
+- Recent Customers
+- At Risk
+- Lost Customers
 
----
-
-## 5 Customer Segmentation
-
-Customer segmentation is performed using clustering techniques to group customers with similar purchasing behaviors.
-
-This allows businesses to identify:
-
-- High-value customers
-- Medium-value customers
-- Low-value customers
-
-Principal Component Analysis (PCA) is used to visualize clusters in two dimensions.
+This segmentation helps businesses understand which customers require retention strategies or marketing campaigns.
 
 ---
 
-## 6 Predictive Modeling
+## 5 Predictive Modeling
 
-A classification model is trained to identify high-value customers based on their purchasing behavior.
+Machine learning models are used to identify **high-value customers**.
 
-Model performance is evaluated using:
+Model evaluation includes metrics such as:
 
-- Confusion Matrix
+- Accuracy
+- Precision
+- Recall
+- F1 Score
 - ROC Curve
-- Classification metrics
 
-Threshold tuning is performed to improve prediction accuracy.
+Threshold tuning is also performed to optimize model performance.
+
+---
+
+# Tableau Visualizations
+
+The following visualizations were created using **Tableau** to present insights from the analysis.
+
+---
+
+## Customer Distribution by RFM Segment
+
+![Customer Distribution by RFM Segmentation](https://github.com/LipnaRoshmi/retail-customer-segmentation-ml/blob/main/visualizations/Customer%20Distribution%20by%20RFM%20Segmentation.png)
+
+This chart shows the proportion of customers in each RFM segment such as Champions, Potential Loyalists, At Risk, Lost Customers, Recent Customers, and Loyal Customers.
+
+It helps businesses identify which customer groups require engagement, retention strategies, or loyalty programs.
+
+---
+
+## Customer Value Distribution (Frequency vs Spending)
+
+![Customer Value Distribution](https://github.com/LipnaRoshmi/retail-customer-segmentation-ml/blob/main/visualizations/Customer%20value%20distribution.png)
+
+This scatter plot visualizes the relationship between **purchase frequency and monetary value**.
+
+Insights from this visualization include:
+
+- Customers who purchase frequently and spend more represent high-value customers.
+- Some customers spend large amounts but purchase less frequently.
+- Others purchase often but spend smaller amounts.
+
+---
+
+## Purchase Amount vs Customer Rating
+
+![Purchase Amount vs Customer Rating](https://github.com/LipnaRoshmi/retail-customer-segmentation-ml/blob/main/visualizations/Purchase%20amount%20vs%20Customer%20Rating.png)
+
+This visualization compares **purchase amounts for different product categories with customer ratings**.
+
+It highlights:
+
+- High-revenue products
+- Products with high customer satisfaction
+- Categories where revenue and customer satisfaction may not align.
+
+---
+
+# Outputs
+
+The `outputs` folder contains results generated from the analysis.
+
+### fashion_cluster_summary.csv
+
+Contains summary statistics for each customer cluster.
+
+### fashion_high_value_predictions.csv
+
+Contains predictions identifying which customers are classified as high-value customers.
+
+### fashion_threshold_tuning_results.csv
+
+Contains evaluation results for different classification thresholds.
 
 ---
 
@@ -163,8 +210,10 @@ Threshold tuning is performed to improve prediction accuracy.
 retail-customer-segmentation-ml
 │
 ├── data
+│   └── Fashion_Retail_Sales.csv
 │
 ├── notebooks
+│   └── Fashion_Retail.ipynb
 │
 ├── outputs
 │   ├── fashion_cluster_summary.csv
@@ -172,62 +221,18 @@ retail-customer-segmentation-ml
 │   └── fashion_threshold_tuning_results.csv
 │
 ├── visualizations
-│   ├── PCA projection.png
-│   ├── ROC curve.png
-│   └── confusion matrix.png
+│   ├── Customer Distribution by RFM Segmentation.png
+│   ├── Customer value distribution.png
+│   └── Purchase amount vs Customer Rating.png
 │
 └── README.md
 ```
 
 ---
 
-# Outputs
-
-The **outputs** folder contains the main results generated from the project.
-
-### fashion_cluster_summary.csv
-
-Contains summary statistics of the identified customer clusters.
-
-### fashion_high_value_predictions.csv
-
-Contains predictions identifying high-value customers.
-
-### fashion_threshold_tuning_results.csv
-
-Contains results from threshold tuning used to optimize classification performance.
-
----
-
-# Visualizations
-
-## PCA Projection
-
-This visualization shows customer clusters projected into two dimensions using **Principal Component Analysis (PCA)**.
-
-![PCA Projection](https://github.com/LipnaRoshmi/retail-customer-segmentation-ml/blob/main/visualizations/PCA%20projection.png)
-
----
-
-## ROC Curve
-
-The ROC curve illustrates the performance of the classification model across different thresholds.
-
-![ROC Curve](https://github.com/LipnaRoshmi/retail-customer-segmentation-ml/blob/main/visualizations/ROC%20curve.png)
-
----
-
-## Confusion Matrix
-
-The confusion matrix summarizes the performance of the classification model.
-
-![Confusion Matrix](https://github.com/LipnaRoshmi/retail-customer-segmentation-ml/blob/main/visualizations/confusion%20matrix.png)
-
----
-
 # Key Learning Outcomes
 
-This project demonstrates important data science skills such as:
+This project demonstrates several important data science skills:
 
 - Data cleaning and preprocessing
 - Feature engineering
@@ -235,7 +240,7 @@ This project demonstrates important data science skills such as:
 - Customer segmentation
 - Machine learning classification
 - Model evaluation
-- Data visualization
+- Data visualization using Tableau
 
 ---
 
@@ -252,6 +257,5 @@ This project can be extended by implementing:
 
 # Author
 
-Lipna Sahayaraj 
-
+Lipna Sahayaraj  
 MSc Data Science
